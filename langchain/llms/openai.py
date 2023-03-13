@@ -518,9 +518,11 @@ class AzureOpenAI(BaseOpenAI):
 
     @property
     def _identifying_params(self) -> Mapping[str, Any]:
+        chatgpt_override_params = super()._identifying_params
+        chatgpt_override_params.pop('best_of')
         return {
             **{"deployment_name": self.deployment_name},
-            **super()._identifying_params,
+            **chatgpt_override_params,
         }
 
     @property
